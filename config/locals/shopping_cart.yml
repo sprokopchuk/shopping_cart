@@ -1,0 +1,56 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  current_cart:
+    back_to_orders: "Back to orders"
+    back_to_store: "Back to store"
+    back_to_cart: "Go to cart"
+    shopping_cart: "Shopping Cart"
+    continue_shopping: "Continue shopping"
+    place_order: "Place order"
+    book: "Book"
+    quantity: "Quantity"
+    price: "Price"
+    total: "Total"
+    subtotal: "Subtotal"
+    empty_cart: "Empty Cart"
+    checkout: "Checkout"
+    coupon_code: "Coupon code"
+    update: "Update"
+    remove: "Remove"
+    update_success: 'Cart was successfully updated.'
+    in_queue: "Your order was successfully add in queue"
+    fail: 'Something is went wrong.'
+    no_items: "Cart don't have any books"
+  checkout_order:
+    save_and_continue: "Save and Continue"
+    address: "Address"
+    delivery: "Delivery"
+    payment: "Payment"
+    confirm: "Confirm"
+    complete: "Complete"
+  order_items:
+    add_success: 'Book was successfully add to CART.'
+    add_fail: 'Book was not add to CART.Something is wrong'
+    destroy_item: 'Book was successfully removed from cart.'
+    destroy_all_items: 'Cart was successfully emptied'
+

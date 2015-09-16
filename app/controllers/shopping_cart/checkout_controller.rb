@@ -31,7 +31,7 @@ module ShoppingCart
     end
     def complete
       @order = Order.find(params[:id])
-      #authorize! :complete, @order
+      authorize! :complete, @order
       @order.next_step_checkout!
       flash.now[:notice] = t("current_order.in_queue")
     end
