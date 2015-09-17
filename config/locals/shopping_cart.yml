@@ -27,7 +27,7 @@ en:
     shopping_cart: "Shopping Cart"
     continue_shopping: "Continue shopping"
     place_order: "Place order"
-    book: "Book"
+    product: "product"
     quantity: "Quantity"
     price: "Price"
     total: "Total"
@@ -40,7 +40,7 @@ en:
     update_success: 'Cart was successfully updated.'
     in_queue: "Your order was successfully add in queue"
     fail: 'Something is went wrong.'
-    no_items: "Cart don't have any books"
+    no_items: "Cart don't have any products"
   checkout_order:
     save_and_continue: "Save and Continue"
     address: "Address"
@@ -49,8 +49,8 @@ en:
     confirm: "Confirm"
     complete: "Complete"
   order_items:
-    add_success: 'Book was successfully add to CART.'
-    add_fail: 'Book was not add to CART.Something is wrong'
-    destroy_item: 'Book was successfully removed from cart.'
+    add_success: 'Product was successfully add to CART.'
+    add_fail: 'Product was not add to CART.Something is wrong'
+    destroy_item: 'Product was successfully removed from cart.'
     destroy_all_items: 'Cart was successfully emptied'
 

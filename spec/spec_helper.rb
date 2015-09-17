@@ -9,27 +9,29 @@ require 'faker'
 require "rspec-activemodel-mocks"
 require 'haml-rails'
 require 'cancancan'
-include Warden::Test::Helpers
-Warden.test_mode!
 Rails.backtrace_cleaner.remove_silencers!
-
+def main_app
+  Rails.application.routes.url_helpers
+end
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
-def main_app
-  Rails.application.class.routes.url_helpers
-end
 
 RSpec.configure do |config|
+  config.include Capybara::DSL
   config.mock_with :rspec
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
   config.infer_base_class_for_anonymous_controllers = false
   config.order = "random"
+  config.include Warden::Test::Helpers
   config.include Devise::TestHelpers, :type => :controller
   config.expect_with :rspec do |expectations|
      expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
 
+  config.include ShoppingCart::Engine.routes.url_helpers
+
   config.before(:suite) do
+    Warden.test_mode!
     DatabaseCleaner.clean_with(:truncation)
   end
 
@@ -44,5 +46,6 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+    Warden.test_reset!
   end
 end
