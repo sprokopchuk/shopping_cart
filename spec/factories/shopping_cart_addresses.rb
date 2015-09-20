@@ -6,7 +6,7 @@ FactoryGirl.define do
     city {Faker::Address.city}
     phone {Faker::PhoneNumber.cell_phone}
     country
-
+    user
     factory :billing_address do
       billing_address true
     end

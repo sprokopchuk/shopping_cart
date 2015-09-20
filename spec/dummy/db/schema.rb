@@ -165,14 +165,22 @@ ActiveRecord::Schema.define(version: 20150913175820) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "shopping_cart_order_items", force: :cascade do |t|
-    t.float    "price"
-    t.integer  "quantity"
-    t.integer  "product_id"
-    t.integer  "order_id"
+  create_table "shopping_cart_doms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "shopping_cart_order_items", force: :cascade do |t|
+    t.float    "price"
+    t.integer  "quantity"
+    t.integer  "order_id"
+    t.integer  "cartable_id"
+    t.string   "cartable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "shopping_cart_order_items", ["cartable_id"], name: "index_shopping_cart_order_items_on_cartable_id", using: :btree
 
   create_table "shopping_cart_orders", force: :cascade do |t|
     t.float    "total_price",    default: 0.0

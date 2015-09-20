@@ -3,7 +3,9 @@ FactoryGirl.define do
   factory :order_item, :class => ShoppingCart::OrderItem do
     price "100.5"
     quantity "1"
-    product
+    factory :order_item_with_book do
+      association :cartable, factory: :book
+    end
     order
   end
 

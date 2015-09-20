@@ -1,7 +1,8 @@
 require 'spec_helper'
 module ShoppingCart
   describe Address, type: :model do
-    subject {FactoryGirl.create :address}
+    let(:authenticated_user) {FactoryGirl.create :user}
+    subject {FactoryGirl.create :address, user_id: authenticated_user.id}
     it {expect(subject).to validate_presence_of(:address)}
     it {expect(subject).to validate_presence_of(:zipcode)}
     it {expect(subject).to validate_presence_of(:city)}

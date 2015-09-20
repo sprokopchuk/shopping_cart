@@ -6,7 +6,7 @@ class CreateShoppingCartAddresses < ActiveRecord::Migration
       t.string :city
       t.string :phone
       t.belongs_to :country, index:true
-      t.integer :user_id
+      t.belongs_to :user
       t.boolean :billing_address
       t.boolean :shipping_address
 

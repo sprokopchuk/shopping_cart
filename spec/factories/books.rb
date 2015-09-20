@@ -1,6 +1,6 @@
 require 'spec_helper'
 FactoryGirl.define do
-  factory :product, :class => Book do
+  factory :book do
     title {Faker::Lorem.sentence}
     description {Faker::Lorem.sentence}
     price 50

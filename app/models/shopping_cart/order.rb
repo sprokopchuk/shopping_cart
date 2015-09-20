@@ -44,6 +44,10 @@ module ShoppingCart
 
     end
 
+    def self.find_or_create_current_cart(user:)
+      self.in_progress.create_with(state: 'in_progress').find_or_create_by(user_id: user.id)
+    end
+
     def set_total_price
       price_with_delivery
       self.save
@@ -57,13 +61,13 @@ module ShoppingCart
       "R" << self.id.to_s.rjust(9, '0')
     end
 
-    def add order_item
-      item = OrderItem.find_by(product_id: order_item.product_id, order_id: self.id)
+    def add product, product_quantity = 1
+      item = self.order_items.find_by(cartable: product)
       if item.nil?
-        self.order_items << order_item
+        self.order_items << ShoppingCart::OrderItem.new(cartable: product, price: product.price, quantity: product_quantity)
       else
         amount_ordered = item.quantity
-        amount_ordered += order_item.quantity
+        amount_ordered += product_quantity
         item.update_attributes(quantity: amount_ordered)
       end
     end

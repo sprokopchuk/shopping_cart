@@ -8,10 +8,10 @@
               %span.glyphicon.glyphicon-shopping-cart
               = t("current_cart.shopping_cart")
           .col-xs-6
-            = link_to t("current_cart.continue_shopping"), root_path, class: "btn btn-primary btn-block"
+            = link_to t("current_cart.continue_shopping"), main_app.root_path, class: "btn btn-primary btn-block"
     - if current_cart.order_items.any?
       .panel-body
-        = form_for(current_cart, url: shopping_cart_path, method: :put) do |f|
+        = form_for(current_cart, url: cart_path, method: :put) do |f|
           %table.table.table-hover
             %thead
               %tr
