@@ -5,15 +5,10 @@ ActiveRecord::Base.extend ShoppingCart::Cartable
 ActiveRecord::Base.extend ShoppingCart::HasCart
 
 module ShoppingCart
-  mattr_accessor :user_class, :product_class, :current_user_method
+  mattr_accessor :user_class, :current_user_method
 
   def self.user_class
     @@user_class.constantize
   end
-
-  def self.product_class
-    @@product_class.constantize
-  end
-
 
 end

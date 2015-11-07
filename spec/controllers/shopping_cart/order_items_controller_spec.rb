@@ -4,14 +4,13 @@ module ShoppingCart
     routes { ShoppingCart::Engine.routes }
     let(:authenticated_user) {FactoryGirl.create :user}
     let(:ability) { Ability.new(authenticated_user) }
-    let(:book) {FactoryGirl.create :product}
+    let(:book) {FactoryGirl.create :book}
     let(:order_in_progress) {FactoryGirl.create :order}
-    let(:order_item) {FactoryGirl.build_stubbed :order_item, product: book}
-    let(:order_item_params) {FactoryGirl.attributes_for(:order_item, product_id: book.id.to_s).stringify_keys}
+    let(:order_item) {FactoryGirl.build_stubbed :order_item_with_book}
+    let(:order_item_params) {FactoryGirl.attributes_for(:order_item, cartable_id: book.id, cartable_type: book.class.to_s).stringify_keys}
     before(:each) do
       request.env["HTTP_REFERER"] = "localhost:3000/where_i_came_from"
       allow(controller).to receive(:current_ability).and_return(ability)
-      allow(controller).to receive(:current_user).and_return authenticated_user
       allow(controller).to receive(:current_cart).and_return order_in_progress
       ability.can :manage, :all
     end

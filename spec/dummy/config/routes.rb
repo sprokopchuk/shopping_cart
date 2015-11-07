@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root "home#index"
+  root "books#index"
   mount ShoppingCart::Engine => "/cart"
+  resources :books, only: [:index, :show], format: false
   devise_for :users,  path: '', path_names: { sign_in: 'login', sign_out: 'logout', password: 'password', registration: 'settings', sign_up: 'register' }
 end

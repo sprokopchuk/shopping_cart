@@ -4,8 +4,8 @@ module ShoppingCart
   feature 'Shopping cart', type: :request do
     given(:user) {FactoryGirl.create :user}
     given(:order_in_progress) {FactoryGirl.create :order, user: user, credit_card_id: nil}
-    given(:book) {FactoryGirl.create :product}
-    given(:order_item) {FactoryGirl.create :order_item, product: book}
+    given(:book) {FactoryGirl.create :book}
+    given(:order_item) {FactoryGirl.create :order_item, cartable: book}
     background do
       login_as(user, scope: :user)
     end
@@ -20,7 +20,7 @@ module ShoppingCart
     scenario 'see book in the cart' do
       order_in_progress.add order_item
       visit cart_path
-      expect(page).to have_link("#{book.title}", href: product_path(book))
+      expect(page).to have_link("#{book.title}", href: main_app.product_path(book))
     end
 
     scenario 'update quantity of books' do
@@ -61,8 +61,8 @@ module ShoppingCart
     feature 'checkout order' do
       given(:user) {FactoryGirl.create :user}
       given(:order_in_progress) {FactoryGirl.create :order, user: user}
-      given(:book) {FactoryGirl.create :product}
-      given(:order_item) {FactoryGirl.create :order_item, product: book}
+      given(:book) {FactoryGirl.create :book}
+      given(:order_item) {FactoryGirl.create :order_item, cartable: book}
       given(:billing_address_attributes) {FactoryGirl.attributes_for :billing_address, country_id: countries[0].id}
       given(:shipping_address_attributes) {FactoryGirl.attributes_for :shipping_address, country_id: countries[0].id}
       given(:billing_address) {FactoryGirl.create :address, billing_address: true, user_id: user.id}
