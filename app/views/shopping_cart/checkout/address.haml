@@ -6,7 +6,7 @@
           .col-xs-2
             %h4
               %b
-                = t("current_order.checkout")
+                = t("current_cart.checkout")
           %ul.nav.nav-tabs
             %li.active= link_to t("checkout_order.address"), address_checkout_path
             %li.disabled= link_to  t("checkout_order.delivery"), delivery_checkout_path
@@ -24,7 +24,7 @@
         $#{@checkout_form.current_order.real_price}
       .col-xs-7
         =form_for @checkout_form, url: checkout_path, method: :put do |f|
-          = render partial: "shared/error_messages", locals: {object: @checkout_form}
+          = render partial: "shopping_cart/shared/error_messages", locals: {object: @checkout_form}
           .col-xs-12
             = f.check_box :use_billing_as_shipping_address, {}, "yes", "no"
             = f.label :use_billing_as_shipping_address, "Use billing as shipping address"
@@ -32,13 +32,13 @@
             %u
               %h3 Billing address
             = f.fields_for :billing_address, @checkout_form.billing_address do |address_form|
-              = render partial: "shared/fields_address", locals: {address_form: address_form}
+              = render partial: "shopping_cart/shared/fields_address", locals: {address_form: address_form}
           .col-xs-5.col-md-offset-1
             %u
               %h3 Shipping address
             = f.fields_for :shipping_address, @checkout_form.shipping_address do |address_form|
               .col-xs-12#shipping-address
-                = render partial: "shared/fields_address", locals: {address_form: address_form}
+                = render partial: "shopping_cart/shared/fields_address", locals: {address_form: address_form}
           .col-xs-12.col-md-offset-3
             = f.button t("checkout_order.save_and_continue"), :name => "checkout", value: "address", class: "btn btn-primary"
 

@@ -1,8 +1,8 @@
 require 'faker'
 FactoryGirl.define do
   factory :order_item, :class => ShoppingCart::OrderItem do
-    price "100.5"
-    quantity "1"
+    price 100
+    quantity 1
     factory :order_item_with_book do
       association :cartable, factory: :book
     end

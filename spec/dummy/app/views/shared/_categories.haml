@@ -1,0 +1,8 @@
+.col-sm-1.col-md-2
+  .text-center
+    %h3
+      %b
+        = t("books.categories")
+  .list-group
+    - @categories.each do |cat|
+      = link_to cat.title, books_path(cat, :category_id => cat.id), class: "list-group-item " + active_class(books_path(cat, :category_id => cat.id))

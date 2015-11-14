@@ -8,9 +8,9 @@ module ShoppingCart
 
     def update
       if current_cart.update(order_params)
-        redirect_to :back, notice: t("current_order.update_success")
+        redirect_to :back, notice: t("current_cart.update_success")
       else
-        redirect_to :back, notice: t("current_order.fail")
+        redirect_to :back, notice: t("current_cart.fail")
       end
     end
 

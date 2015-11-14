@@ -43,9 +43,9 @@ class ApplicationController < ActionController::Base
       @current_ability ||= Ability.new(current_or_guest_user)
     end
 
-    rescue_from CanCan::AccessDenied do |exception|
-      redirect_to main_app.root_url, :alert => exception.message
-    end
+   # rescue_from CanCan::AccessDenied do |exception|
+   #   redirect_to main_app.root_url, :alert => exception.message
+   # end
 
   protected
     def configure_permitted_parameters

@@ -11,7 +11,7 @@
             = link_to t("current_cart.continue_shopping"), main_app.root_path, class: "btn btn-primary btn-block"
     - if current_cart.order_items.any?
       .panel-body
-        = form_for(current_cart, url: cart_path, method: :put) do |f|
+        = form_for current_cart, url: cart_path, method: :put do |f|
           %table.table.table-hover
             %thead
               %tr
@@ -26,7 +26,7 @@
                 %th
             %tbody
               - current_cart.order_items.each do |order_item|
-                = f.fields_for :order_items, order_item do |item_form|
+                = f.fields_for :order_items_attributes, order_item do |item_form|
                   = render partial: 'order_item_form', locals: {item_form: item_form, order_item: order_item}
               %tr
                 %td
@@ -44,7 +44,7 @@
                 %td
                   = link_to t("current_cart.checkout"), address_checkout_path, class: "btn btn-success btn-block"
                 %td
-                %td= f.button t("current_cart.update"), name: "shopping_cart", value: true, class: "btn btn-primary"
+                %td= f.button t("current_cart.update"), class: "btn btn-primary"
     - else
       .panel-footer
         .row.text-center

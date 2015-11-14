@@ -1,0 +1,10 @@
+= address_form.text_field :address, class: "form-control", placeholder:  t("settings.edit_info.street_address")
+%br/
+= address_form.text_field :city, class: "form-control", placeholder:  t("settings.edit_info.city")
+%br/
+= address_form.select :country_id, ShoppingCart::Country.all.collect {|c| [ c.name, c.id ] }, { prompt:  t("settings.edit_info.country")}, {class: "form-control" }
+%br/
+= address_form.text_field :zipcode, class: "form-control", placeholder:  t("settings.edit_info.zip_code")
+%br/
+= address_form.text_field :phone, class: "form-control", placeholder:  t("settings.edit_info.phone")
+%br/

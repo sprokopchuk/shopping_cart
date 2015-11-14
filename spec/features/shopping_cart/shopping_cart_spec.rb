@@ -3,57 +3,48 @@ require 'spec_helper'
 module ShoppingCart
   feature 'Shopping cart', type: :request do
     given(:user) {FactoryGirl.create :user}
-    given(:order_in_progress) {FactoryGirl.create :order, user: user, credit_card_id: nil}
+    given(:order_in_progress) {FactoryGirl.create :order, user: user}
     given(:book) {FactoryGirl.create :book}
     given(:order_item) {FactoryGirl.create :order_item, cartable: book}
     background do
       login_as(user, scope: :user)
     end
 
-    xscenario 'add successfully book to cart' do
-      visit product_path(book)
-      click_button I18n.t("books.add_to_card")
-      expect(page).to have_content(I18n.t("order_items.add_success"))
-      expect(page).to have_link(I18n.t("header.cart")+" ($#{book.price})", href: cart_path)
+    scenario 'see product in the cart' do
+      order_in_progress.add book, order_item.quantity
+      visit cart_path
+      expect(page).to have_content("#{book.title}")
     end
 
-    scenario 'see book in the cart' do
-      order_in_progress.add order_item
+    scenario 'update quantity of products' do
+      order_in_progress.add book, order_item.quantity
       visit cart_path
-      expect(page).to have_link("#{book.title}", href: main_app.product_path(book))
-    end
-
-    scenario 'update quantity of books' do
-      order_in_progress.add order_item
-      visit cart_path
-      within "#edit_order_#{order_in_progress.id}" do
-        fill_in "order[order_items_attributes][0][quantity]", with: 3
-      end
-      click_button I18n.t("current_order.update")
-      expect(page).to have_content(I18n.t("current_order.update_success"))
+      fill_in "order[order_items_attributes][quantity]", with: 3
+      click_button I18n.t("current_cart.update")
+      expect(page).to have_content(I18n.t("current_cart.update_success"))
       expect(page).to have_content("#{order_in_progress.real_price}")
     end
 
-    scenario 'remove the book from cart' do
-      order_in_progress.add order_item
+    scenario 'remove the product from cart' do
+      order_in_progress.add book, order_item.quantity
       visit cart_path
-      click_link(I18n.t("current_order.remove"), href: order_item_path(order_item))
+      find_link(I18n.t("current_cart.remove"), href: order_item_path(order_in_progress.order_items[0])).click
       expect(page).to have_content(I18n.t("order_items.destroy_item"))
-      expect(page).not_to have_link("#{book.title}", href: book_path(book))
+      expect(page).not_to have_content("#{book.title}")
     end
 
     scenario 'empty shopping cart' do
-      order_in_progress.add order_item
+      order_in_progress.add book, order_item.quantity
       visit cart_path
-      click_link(I18n.t("current_order.empty_cart"), href: destroy_all_order_items_path)
+      click_link(I18n.t("current_cart.empty_cart"), href: destroy_all_order_items_path)
       expect(page).to have_content(I18n.t("order_items.destroy_all_items"))
-      expect(page).not_to have_link("#{book.title}", href: book_path(book))
+      expect(page).not_to have_link("#{book.title}")
     end
 
     scenario "to checkout order" do
-      order_in_progress.add order_item
+      order_in_progress.add book, order_item.quantity
       visit cart_path
-      click_link(I18n.t("current_order.checkout"))
+      click_link(I18n.t("current_cart.checkout"))
       expect(current_path).to eq address_checkout_path
       end
 
@@ -72,7 +63,7 @@ module ShoppingCart
       given!(:deliveries) {FactoryGirl.create_list :delivery, 3}
       given(:credit_card_attributes) {FactoryGirl.attributes_for :credit_card, :exp_year=>2016}
       before do
-        order_in_progress.add order_item
+        order_in_progress.add book, order_item.quantity
       end
       scenario 'fill in addresses' do
         visit address_checkout_path

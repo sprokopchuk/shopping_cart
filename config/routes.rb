@@ -1,4 +1,5 @@
-ShoppingCart::Engine.routes.draw do
+ShoppingCart::Engine.routes.draw  do
+
   resource :cart, controller: "cart", only: [:show, :update], format: false
   resource :checkout, controller: "checkout", only: [:update], format: false do
     get 'address'

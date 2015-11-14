@@ -1,14 +1,16 @@
 %tr
   %td.col-sm-8.col-md-6
     .media
-      = image_tag order_item.product.image.thumb.url, class: "media-object thumbnail pull-left", size: "90x120"
+      = image_tag order_item.cartable_thumb_image_url, class: "media-object thumbnail pull-left", size: "90x120"
       .media-body
-        %h4.media-heading= link_to order_item.product.title, product_path(order_item.product)
+        %h4.media-heading
+          = order_item.cartable_title
   %td.col-sm-1.col-md-1{:style => "text-align: center"}
-    = item_form.number_field :quantity, {min: 1, max: order_item.product.in_stock, class: "form-control"}
+    = item_form.number_field :quantity, {min: 1, max: order_item.cartable_in_stock, class: "form-control"}
+  = item_form.hidden_field  :id, value: order_item.id
   %td.col-sm-1.col-md-1.text-center
     %strong
-      $#{order_item.product.price}
+      $#{order_item.cartable_price}
   %td.col-sm-1.col-md-1.text-center
     %strong
       $#{order_item.total_price}

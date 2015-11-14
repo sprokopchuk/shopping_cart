@@ -27,7 +27,7 @@
         $#{@checkout_form.current_order.price_with_delivery}
       .col-xs-7
         = form_for @checkout_form,  url: checkout_path, method: :put do |f|
-          = render partial: "shared/error_messages", locals: {object: @checkout_form}
+          = render partial: "shopping_cart/shared/error_messages", locals: {object: @checkout_form}
           .col-xs-7
             %u
               %h3 Payment:

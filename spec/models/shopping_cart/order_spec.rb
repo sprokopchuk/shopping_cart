@@ -4,7 +4,6 @@ module ShoppingCart
     subject {FactoryGirl.create :order}
     it {expect(subject).to validate_presence_of(:total_price)}
     it {expect(subject).to validate_presence_of(:state)}
-    it {expect(subject).to validate_numericality_of(:total_price)}
     it {expect(subject).to belong_to(:user)}
     it {expect(subject).to belong_to(:credit_card)}
     it {expect(subject).to have_many(:order_items)}

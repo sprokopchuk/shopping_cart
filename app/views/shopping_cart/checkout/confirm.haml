@@ -76,7 +76,7 @@
               %th
           %tbody
             - @checkout_form.current_order.order_items.each do |order_item|
-              = render partial: 'shared/order_item_list', locals: {order_item: order_item}
-            = render partial: 'shared/order_price', locals: {order: @checkout_form.current_order}
+              = render partial: 'shopping_cart/shared/order_item_list', locals: {order_item: order_item}
+            = render partial: 'shopping_cart/shared/order_price', locals: {order: @checkout_form.current_order}
       .col-xs-3
         = button_to t("current_order.place_order"), {:action => "complete", id: @checkout_form.current_order.id}, {class: "btn btn-primary"}

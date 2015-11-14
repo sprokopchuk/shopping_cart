@@ -11,6 +11,7 @@ module ShoppingCart
     has_one :shipping_address, class_name: "ShoppingCart::Address", through: :user
     validates :total_price, :state, presence: true
     validates :total_price, numericality: true
+    accepts_nested_attributes_for :order_items, allow_destroy: true
 
     aasm :whiny_transitions => false, :column => 'state' do
       state :in_progress, :initial => true

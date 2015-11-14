@@ -53,4 +53,13 @@ en:
     add_fail: 'Product was not add to CART.Something is wrong'
     destroy_item: 'Product was successfully removed from cart.'
     destroy_all_items: 'Cart was successfully emptied'
+  settings:
+    orders: "Orders"
+    edit_info:
+      street_address: "Street address"
+      city: "City"
+      country: "Country"
+      zip_code: "Zip code"
+      phone: "Phone"
+
 

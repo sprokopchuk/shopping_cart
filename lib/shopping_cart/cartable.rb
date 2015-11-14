@@ -9,7 +9,7 @@ module ShoppingCart
       configuration.update(options) if options.is_a?(Hash)
       @@cartables << self.to_s
       @cartable_configuration = configuration
-      has_many :order_items, :as => :cartable, :class => ShoppingCart::OrderItem
+      has_many :order_items, :as => :cartable, :class_name => ShoppingCart::OrderItem
     end
 
     def self.cartables

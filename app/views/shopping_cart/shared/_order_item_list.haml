@@ -1,0 +1,15 @@
+%tr
+  %td.col-sm-9.col-md-8
+    .media
+      = image_tag order_item.cartable_thumb_image_url, class: "media-object thumbnail pull-left", size: "90x120"
+      .media-body
+        %h4.media-heading= order_item.cartable_title
+  %td.col-sm-1.col-md-1{:style => "text-align: center"}
+    = order_item.quantity
+  %td.col-sm-2.col-md-2.text-center
+    %strong
+      $#{order_item.cartable_price}
+  %td.col-sm-2.col-md-2.text-center
+    %strong
+      $#{order_item.total_price}
+

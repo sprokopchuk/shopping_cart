@@ -8,7 +8,7 @@
               %b
                 Order #{@order.number}
           .col-xs-6
-            = link_to t("current_order.back_to_store"), root_path, class: "btn btn-primary btn-block"
+            = link_to t("current_order.back_to_store"), main_app.root_path, class: "btn btn-primary btn-block"
     .panel-body
       .col-xs-12
         %address.col-xs-3
@@ -64,8 +64,8 @@
               %th
           %tbody
             - @order.order_items.each do |order_item|
-              = render partial: 'shared/order_item_list', locals: {order_item: order_item}
-            = render partial: 'shared/order_price', locals: {order: @order}
+              = render partial: 'shopping_cart/shared/order_item_list', locals: {order_item: order_item}
+            = render partial: 'shopping_cart/shared/order_price', locals: {order: @order}
 
 
 

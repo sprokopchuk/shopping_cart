@@ -36,7 +36,7 @@ module ShoppingCart
 
         it "sends success notice" do
           put :update, order: order_params
-          expect(flash[:notice]).to eq(I18n.t("current_order.update_success"))
+          expect(flash[:notice]).to eq(I18n.t("current_cart.update_success"))
         end
 
         it "redirects to shopping cart" do
@@ -54,7 +54,7 @@ module ShoppingCart
         end
 
         it "sends fail message" do
-          expect(flash[:notice]).to eq(I18n.t("current_order.fail"))
+          expect(flash[:notice]).to eq(I18n.t("current_cart.fail"))
         end
         it "redirects to :back when attempt to update is fail" do
           expect(response).to redirect_to :back

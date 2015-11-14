@@ -5,7 +5,7 @@ module ShoppingCart
     let(:authenticated_user) {FactoryGirl.create :user}
     let(:ability) { Ability.new(authenticated_user) }
     let(:book) {FactoryGirl.create :book}
-    let(:order_in_progress) {FactoryGirl.create :order}
+    let(:order_in_progress) {FactoryGirl.create :order, user: authenticated_user}
     let(:order_item) {FactoryGirl.build_stubbed :order_item_with_book}
     let(:order_item_params) {FactoryGirl.attributes_for(:order_item, cartable_id: book.id, cartable_type: book.class.to_s).stringify_keys}
     before(:each) do
@@ -30,7 +30,7 @@ module ShoppingCart
         end
 
         it "receives add for current_cart" do
-          expect(order_in_progress).to receive(:add).with(order_item_params)
+          expect(order_in_progress).to receive(:add).with(book, order_item.quantity.to_s)
           post :create, order_item: order_item_params
         end
 
@@ -57,18 +57,6 @@ module ShoppingCart
         it "redirects to back" do
           post :create, order_item: order_item_params
           expect(response).to redirect_to :back
-        end
-      end
-      context "with forbidden attributes" do
-        before do
-          allow(controller).to receive_message_chain(:current_cart, :add).and_return true
-        end
-        it "generates ParameterMissing error without order items params" do
-          expect{post :create}.to raise_error(ActionController::ParameterMissing)
-        end
-        it "filters forbidden params" do
-          expect(OrderItem).to receive(:new).with(order_item_params)
-          post :create, order_item: order_item_params.merge(user_id: 1)
         end
       end
 
