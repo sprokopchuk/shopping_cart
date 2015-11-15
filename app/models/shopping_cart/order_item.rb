@@ -2,7 +2,9 @@ module ShoppingCart
   class OrderItem < ActiveRecord::Base
     belongs_to :order
     validates :price, :quantity, presence: true
-    validates :price, :quantity, numericality: true
+    validates :price, numericality:  { greater_than_or_equal_to: 0.01 }
+    validates :quantity, numericality:  { greater_than_or_equal_to: 0 }
+
     belongs_to :cartable, polymorphic: true
     after_create :add_cartable_methods
 

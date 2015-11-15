@@ -358,7 +358,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass
   byebug
   capybara
   database_cleaner
@@ -368,7 +367,6 @@ DEPENDENCIES
   rspec-activemodel-mocks
   rspec-collection_matchers
   rspec-rails
-  sass-rails
   selenium-webdriver
   shopping_cart!
   shoulda-matchers

@@ -4,6 +4,7 @@ module ShoppingCart
     subject {FactoryGirl.create :order}
     it {expect(subject).to validate_presence_of(:total_price)}
     it {expect(subject).to validate_presence_of(:state)}
+    it {expect(subject).to validate_numericality_of(:total_price).is_greater_than_or_equal_to(0.01)}
     it {expect(subject).to belong_to(:user)}
     it {expect(subject).to belong_to(:credit_card)}
     it {expect(subject).to have_many(:order_items)}
@@ -40,7 +41,7 @@ module ShoppingCart
       end
       it "change #total_price" do
         subject.add book
-        expect{subject.real_price}.to change{subject.total_price}.from(0).to(50)
+        expect{subject.real_price}.to change{subject.total_price}.from(100.1).to(50)
       end
     end
   end

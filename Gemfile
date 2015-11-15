@@ -13,9 +13,4 @@ source 'https://rubygems.org'
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-group :assets do
-  gem 'sass-rails'
-  gem 'bootstrap-sass'
-end
-
 gemspec

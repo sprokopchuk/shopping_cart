@@ -1,7 +1,7 @@
 require 'faker'
 FactoryGirl.define do
   factory :order, :class => ShoppingCart::Order do
-    total_price 0
+    total_price 100.1
     completed_date {Faker::Date.backward(3)}
     user
     credit_card

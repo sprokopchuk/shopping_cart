@@ -8,13 +8,8 @@ module ShoppingCart
     end
 
     def current_cart
-      Order.find_or_create_current_cart(user: cart_user)
+      ShoppingCart::Order.find_or_create_current_cart(user: cart_user)
     end
 
-
-
-   rescue_from CanCan::AccessDenied do |exception|
-     redirect_to main_app.root_url, :alert => exception.message
-   end
   end
 end
