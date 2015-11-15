@@ -1,6 +1,7 @@
 require "shopping_cart/engine"
 require "shopping_cart/cartable"
 require 'shopping_cart/has_cart'
+
 ActiveRecord::Base.extend ShoppingCart::Cartable
 ActiveRecord::Base.extend ShoppingCart::HasCart
 

@@ -14,5 +14,6 @@ module ShoppingCart
         flash_type.to_s
       end
     end
+
   end
 end

@@ -10,5 +10,9 @@ module ShoppingCart
       g.fixture_replacement :factory_girl, :dir => 'spec/factories'
       g.helper false
     end
+
+    config.to_prepare do
+      ActionController::Base.send(:include, ShoppingCart::CartHelper)
+    end
   end
 end
