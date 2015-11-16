@@ -1,0 +1,20 @@
+%tr
+  %td.col-sm-8.col-md-6
+    .media
+      = image_tag order_item.cartable_thumb_image_url, class: "media-object thumbnail pull-left", size: "90x120"
+      .media-body
+        %h4.media-heading
+          = order_item.cartable_title
+  %td.col-sm-1.col-md-1{:style => "text-align: center"}
+    = item_form.number_field :quantity, {min: 1, max: order_item.cartable_in_stock, class: "form-control"}
+  = item_form.hidden_field  :id, value: order_item.id
+  %td.col-sm-1.col-md-1.text-center
+    %strong
+      $#{order_item.cartable_price}
+  %td.col-sm-1.col-md-1.text-center
+    %strong
+      $#{order_item.total_price}
+  %td.col-sm-1.col-md-1
+    = link_to order_item_path(order_item), method: :delete,  class: "btn btn-danger" do
+      %span.glyphicon.glyphicon-remove
+        = t("current_cart.remove")

@@ -1,0 +1,82 @@
+.col-sm-12.col-md-10.col-md-offset-1
+  .panel.with-nav-tabs.panel-info
+    .panel-heading
+      .panel-title
+        .row
+          .col-xs-2
+            %h4
+              %b
+                = t("current_order.checkout")
+          %ul.nav.nav-tabs
+            %li= link_to t("checkout_order.address"), address_checkout_path
+            %li= link_to  t("checkout_order.delivery"), delivery_checkout_path
+            %li= link_to t("checkout_order.payment"), payment_checkout_path
+            %li.active= link_to t("checkout_order.confirm"), confirm_checkout_path
+            %li.disabled= link_to t("checkout_order.complete"), "#"
+    .panel-body
+      .col-xs-12
+        %u
+          %h3 Confirm:
+          %br
+        %address.col-xs-3
+          %h4
+            %b Billing Address
+            = link_to "(edit)", address_checkout_path
+          = current_or_guest_user.full_name
+          %br
+          = @checkout_form.billing_address.address
+          %br
+          = @checkout_form.billing_address.city
+          = @checkout_form.billing_address.zipcode
+          %br
+          = @checkout_form.billing_address.country.name
+          %br
+          Phone
+          %abbr{title: "Phone"}= @checkout_form.billing_address.phone
+        %address.col-xs-3
+          %h4
+            %b Shipping Address
+            = link_to "(edit)", address_checkout_path
+          = current_or_guest_user.full_name
+          %br
+          = @checkout_form.shipping_address.address
+          %br
+          = @checkout_form.shipping_address.city
+          = @checkout_form.shipping_address.zipcode
+          %br
+          = @checkout_form.shipping_address.country.name
+          %br
+          Phone
+          %abbr{title: "Phone"}= @checkout_form.shipping_address.phone
+        .col-xs-3
+          %h4
+            %b Shipments
+            = link_to "(edit)", delivery_checkout_path
+          = @checkout_form.current_order.delivery.name
+        .col-xs-3
+          %h4
+            %b Payments Information
+            = link_to "(edit)", payment_checkout_path
+          %br
+          = @checkout_form.credit_card.number
+          %br
+          #{@checkout_form.credit_card.exp_month}/#{@checkout_form.credit_card.exp_year}
+      .col-xs-12
+        %table.table.table-hover
+          %thead
+            %tr
+              %th
+                = t("current_order.book")
+              %th
+                = t("current_order.quantity")
+              %th.text-center
+                = t("current_order.price")
+              %th.text-center
+                = t("current_order.total")
+              %th
+          %tbody
+            - @checkout_form.current_order.order_items.each do |order_item|
+              = render partial: 'shopping_cart/shared/order_item_list', locals: {order_item: order_item}
+            = render partial: 'shopping_cart/shared/order_price', locals: {order: @checkout_form.current_order}
+      .col-xs-3
+        = button_to t("current_order.place_order"), {:action => "complete", id: @checkout_form.current_order.id}, {class: "btn btn-primary"}

@@ -1,0 +1,53 @@
+.col-sm-12.col-md-10.col-md-offset-1
+  .panel.panel-info
+    .panel-heading
+      .panel-title
+        .row
+          .col-xs-6
+            %h5
+              %span.glyphicon.glyphicon-shopping-cart
+              = t("current_cart.shopping_cart")
+          .col-xs-6
+            = link_to t("current_cart.continue_shopping"), main_app.root_path, class: "btn btn-primary btn-block"
+    - if current_cart.order_items.any?
+      .panel-body
+        = form_for current_cart, url: cart_path, method: :put do |f|
+          %table.table.table-hover
+            %thead
+              %tr
+                %th
+                  = t("current_cart.book")
+                %th
+                  = t("current_cart.quantity")
+                %th.text-center
+                  = t("current_cart.price")
+                %th.text-center
+                  = t("current_cart.total")
+                %th
+            %tbody
+              - current_cart.order_items.each do |order_item|
+                = f.fields_for :order_items_attributes, order_item do |item_form|
+                  = render partial: 'order_item_form', locals: {item_form: item_form, order_item: order_item}
+              %tr
+                %td
+                %td
+                %td
+                %td
+                  %h3= t("current_cart.subtotal")
+                %td
+                  %h3
+                    %strong $#{current_cart.real_price}
+              %tr
+                %td
+                %td
+                  = link_to t("current_cart.empty_cart"), destroy_all_order_items_path, method: :post, class: "btn btn-danger btn-block"
+                %td
+                  = link_to t("current_cart.checkout"), address_checkout_path, class: "btn btn-success btn-block"
+                %td
+                %td= f.button t("current_cart.update"), class: "btn btn-primary"
+    - else
+      .panel-footer
+        .row.text-center
+          %b
+            = t("current_cart.empty_cart")
+

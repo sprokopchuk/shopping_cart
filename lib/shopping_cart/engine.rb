@@ -13,6 +13,7 @@ module ShoppingCart
 
     config.to_prepare do
       ActionController::Base.send(:include, ShoppingCart::CartHelper)
+      ActionController::Base.send(:helper_method, :current_cart)
     end
   end
 end

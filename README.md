@@ -11,14 +11,14 @@ And then execute:
     $ bundle
 
 ## Usage
-Mount ShoppingCart::Engine in your routes `config/routes.rb`:
-```ruby
-mount ShoppingCart::Engine => '/'
-```
-Run to create initializer and migrations for ShoppingCart::Engine:
+Run to create initializer and migrations for ShoppingCart::Engine.
 
 ```ruby
 rake shopping_cart:install
+```
+This is also add routes into your routes 'config/routes.rb'::
+```ruby
+mount ShoppingCart::Engine => '/'
 ```
 And then run:
 ```ruby
@@ -39,3 +39,19 @@ class Product < ActiveRecord::Base
 end
 ```
 
+## Helpers
+
+ShoppingCart::Engine will create helper to use inside your controllers and views.
+For the current user, this helper is available:
+
+    current_cart
+
+Add a product to the cart:
+
+    = button_to 'Add to cart', shopping_cart.order_items_path(cartable_id: product, cartable_type: product.class)
+
+## Configuring views
+
+Since ShoppingCart::Engine is an engine, all its views are packaged inside the gem. These views will help you get started, but after some time you may want to change them. If this is the case, you just need to invoke the following generator, and it will copy all views to your application:
+
+    rails generate shopping_cart:views
