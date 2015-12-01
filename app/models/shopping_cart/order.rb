@@ -94,7 +94,7 @@ module ShoppingCart
       current_order_items = self.order_items
       other_order.order_items.each do |order_item|
         if current_order_items.include? order_item
-          current_order_item = OrderItem.find_by(product_id: order_item.product_id, order_id: self.id)
+          current_order_item = ShoppingCart::OrderItem.find_by(product_id: order_item.product_id, order_id: self.id)
           amount_ordered = current_order_item.quantity
           amount_ordered += order_item.quantity
           current_order_item.update_attributes(quantity: amount_ordered)

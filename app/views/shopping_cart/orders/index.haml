@@ -8,7 +8,7 @@
               %b Orders
     .panel-body
       .col-xs-12
-        - if @current_order.order_items.any?
+        - if @current_cart.order_items.any?
           %table.table.table-hover
             %thead
               %tr
@@ -21,19 +21,19 @@
             %tbody
               %tr
                 %th
-                  = t("current_order.book")
+                  = t("current_cart.book")
                 %th
-                  = t("current_order.quantity")
+                  = t("current_cart.quantity")
                 %th.text-center
-                  = t("current_order.price")
+                  = t("current_cart.price")
                 %th.text-center
-                  = t("current_order.total")
-              - @current_order.order_items.each do |order_item|
+                  = t("current_cart.total")
+              - @current_cart.order_items.each do |order_item|
                 = render partial: 'shared/order_item_list', locals: {order_item: order_item}
-              = render partial: 'shared/order_price', locals: {order: @current_order}
+              = render partial: 'shared/order_price', locals: {order: @current_cart}
               %tr
                 %th
-                  = link_to t("current_order.back_to_cart"), shopping_cart_path, class: "btn btn-primary btn-block"
+                  = link_to t("current_cart.back_to_cart"), shopping_cart_path, class: "btn btn-primary btn-block"
                 %th
                 %th
                 %th
