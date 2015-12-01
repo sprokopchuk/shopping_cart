@@ -4,7 +4,8 @@ module ShoppingCart
 
     include ActiveSupport::Notifications
 
-    load_and_authorize_resource
+    load_and_authorize_resource :order
+    load_and_authorize_resource :through => :order
 
     class NotAsCartable < StandardError
     end
@@ -19,7 +20,7 @@ module ShoppingCart
 
     def create
       raise NotAsCartable unless ShoppingCart::Cartable.cartables.include?(cartable_class.to_s)
-      product = cartable_class.find(params[:order_item][:cartable_id])
+      product = cartable_class.find(params[:cartable_id])
       if current_cart.add product, params[:order_item][:quantity]
         redirect_to :back, notice: t("order_items.add_success")
       else
@@ -40,7 +41,7 @@ module ShoppingCart
     private
 
     def cartable_class
-      params[:order_item][:cartable_type].constantize
+      params[:cartable_type].constantize
     end
 
   end

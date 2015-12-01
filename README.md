@@ -46,9 +46,29 @@ For the current user, this helper is available:
 
     current_cart
 
-Add a product to the cart:
+Add a product to the cart. Put form in view of the product:
+```ruby
+= form_for :order_item, url: shopping_cart.order_items_path(cartable_id: @product, cartable_type: @product.class), html: {class: "form-inline" } do |f|
+  = f.number_field :quantity, {value: 1, min: 1, max: @product.in_stock, class: "form-control"}
+  = f.submit "Add to Cart", class: "btn btn-primary"
+```
+## Creating model Ability(gem cancancan)
 
-    = button_to 'Add to cart', shopping_cart.order_items_path(cartable_id: product, cartable_type: product.class)
+Model Ability must be inherited from model ShoppingCart::Ability. And in the method initialize call method super.
+```ruby
+class Ability < ShoppingCart::Ability
+  include CanCan::Ability
+
+  def initialize(user)
+    super
+    if user.admin?
+      ...
+    else
+      ...
+    end
+  end
+end
+```
 
 ## Configuring views
 
