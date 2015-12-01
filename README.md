@@ -1,4 +1,5 @@
 # ShoppingCart
+# Don't work corrent. Need fix some issues!!!
 
 This simple Rails Engine. Shopping Cart consists cart, checkout and orders.
 
